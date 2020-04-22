@@ -1,0 +1,23 @@
+<?php
+// Пример работы с классом SxGeo v2.2
+require_once("SxGeo.php");
+// Создаем объект
+// Первый параметр - имя файла с базой (используется оригинальная бинарная база SxGeo.dat)
+// Второй параметр - режим работы: 
+//     SXGEO_FILE   (работа с файлом базы, режим по умолчанию); 
+//     SXGEO_BATCH (пакетная обработка, увеличивает скорость при обработке множества IP за раз)
+//     SXGEO_MEMORY (кэширование БД в памяти, еще увеличивает скорость пакетной обработки, но требует больше памяти)
+$SxGeo = new SxGeo('SxGeoCity.dat');
+//$SxGeo = new SxGeo('SxGeoCity.dat', SXGEO_BATCH | SXGEO_MEMORY); // Самый производительный режим, если нужно обработать много IP за раз
+
+$ip = $_SERVER['REMOTE_ADDR']; // Вся информация о городе
+VAR_EXPORT($SxGeo->get($ip)['city']['name_ru']);
+VAR_EXPORT($SxGeo->get($ip)['country']['iso']);
+$iso=$SxGeo->get($ip)['country']['iso']  ;
+$city=$SxGeo->get($ip)['city']['name_ru']; // Краткая информация о городе или код страны (если используется база SxGeo Country)        // Информация о базе данных
+/*Подключение к базе данных на сервере*/
+$path="flags/".$iso.'.png';
+$info=date("l dS of F Y h:i:s A")."  "."ip vister's:=".$_SERVER['REMOTE_ADDR']." ".$iso."  ".$city."<img src='".$path."'".">"."<br/>"."&&&&"; 
+$lines[]=$info;
+file_put_contents("statistic.txt",$lines, FILE_APPEND | LOCK_EX);
+?>
