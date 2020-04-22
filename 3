@@ -1,0 +1,20 @@
+<?php
+
+
+
+if (isset($_GET['sub']))
+{
+$phone=$_GET['telephone'];
+switch ($_GET['Menu']){
+    case '1': mail("personal@emzlvi.ru", "Уважаемая Ольга Ивановна,Вам поступила заявка с сайта на трудоустройство",$phone); 
+    break;
+    case '2': mail("salesspec@emzlvi.ru", "Уважаемая Любовь Евгеньевна,вам поступила заявка с сайта",$phone); 
+    break;
+    case '3': mail("pribor@emzlvi.ru", "Уважаемая Любовь Евгеньевна,вам поступила заявка с сайта",$phone); break;
+    case '4': mail("salesiz@emzlvi.ru", "Уважаемая Анжела Игоревна,вам поступила заявка с сайта",$phone);break;
+	case '5': mail("secretary@emzlvi.ru", "Уважаемая Наталия Юрьевна,вам поступила заявка",$phone);break;
+};
+};
+
+
+?>
